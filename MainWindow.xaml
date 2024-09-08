@@ -1,0 +1,25 @@
+﻿<Window x:Class="ColorPicker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        Visibility="Collapsed"
+        KeyDown="MainWindow_KeyDown"
+        Title="MainWindow" Height="45" Width="105">
+    <Grid>
+        <Border CornerRadius="10" Background="#111" Margin="2">
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Height="35" Width="35" Margin="3,0,0,0">
+                <Border CornerRadius="8" x:Name="ColorDisplay" Width="35" Height="35" Background="White" BorderBrush="#333" BorderThickness="1">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="4" ShadowDepth="2" Direction="340" Color="black" Opacity="0.7" />
+                    </Border.Effect>
+                </Border>
+                <TextBlock x:Name="ColorCodeTextBlock" Foreground="#e4e4e4" FontSize="12" FontFamily="consolas" HorizontalAlignment="Center" Margin="-15, -40, -110, -5" Height="14">
+                        FFFFFF
+                </TextBlock>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
