@@ -65,7 +65,6 @@ namespace ColorPicker
             }
         }
 
-
         private void UpdateZoomWindowPosition()
         {
             var cursorPosition = System.Windows.Forms.Cursor.Position;
