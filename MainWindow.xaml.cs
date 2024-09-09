@@ -46,7 +46,7 @@ namespace ColorPicker
             
         }
 
-        private void MainWindow_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void ColorCodeTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.Key == Key.K)
             {
@@ -59,6 +59,7 @@ namespace ColorPicker
                 else
                 {
                     _zoomWindow.Visibility = Visibility.Collapsed;
+                    isZoomWindowPositionUpdated = false;
                 }
                 this.Focus();
                 this.KeyDown += MainWindow_KeyDown;
