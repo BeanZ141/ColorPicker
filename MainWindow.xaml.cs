@@ -13,11 +13,9 @@ namespace ColorPicker
     public partial class MainWindow : Window
     {
         private DispatcherTimer _updateTimer;
-        private const int TimerInterval = 0;
         private NotifyIcon _notifyIcon;
         private const int HOTKEY_ID = 9000;
         private const int ESCAPE_HOTKEY_ID = 9001;
-
         private const uint MOD_CONTROL = 0x0002;
         private const uint MOD_SHIFT = 0x0004;
         private const uint VK_C = 0x43;
@@ -37,12 +35,8 @@ namespace ColorPicker
             this.Loaded += MainWindow_Loaded;
             this.StateChanged += MainWindow_StateChanged;
 
-            _zoomWindow = new ZoomWindow();
-            _zoomWindow.Visibility = Visibility.Collapsed;
-
             CreateNotifyIcon();
             RegisterHotKeys();
-            this.Topmost = true;
             
         }
 
@@ -61,8 +55,6 @@ namespace ColorPicker
                     _zoomWindow.Visibility = Visibility.Collapsed;
                     isZoomWindowPositionUpdated = false;
                 }
-                this.Focus();
-                this.KeyDown += MainWindow_KeyDown;
             }
         }
 
@@ -82,11 +74,6 @@ namespace ColorPicker
                 Visible = true
             };
 
-            var contextMenu = new ContextMenuStrip();
-            contextMenu.Items.Add("Settings", null, Settings_Click);
-            contextMenu.Items.Add("Exit", null, Exit_Click);
-
-            _notifyIcon.ContextMenuStrip = contextMenu;
             _notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
         }
 
@@ -152,12 +139,9 @@ namespace ColorPicker
             this.Top = cursorPosition.Y + -3;
 
             using (var bitmap = new Bitmap(1, 1))
-            {
                 using (var g = Graphics.FromImage(bitmap))
                 {
                     g.CopyFromScreen(cursorPosition.X, cursorPosition.Y, 0, 0, new System.Drawing.Size(1, 1));
-                }
-
                 var pixelColor = bitmap.GetPixel(0, 0);
                 var color = System.Windows.Media.Color.FromArgb(pixelColor.A, pixelColor.R, pixelColor.G, pixelColor.B);
                 var brush = new SolidColorBrush(color);

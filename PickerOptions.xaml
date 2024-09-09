@@ -1,4 +1,4 @@
-﻿<Window x:Class="PickerOptions.ColorPickerOptionsWindow"
+﻿<Window x:Class="PickerOptions.PickerOptionsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -72,7 +72,7 @@
             </Button>
 
             <Grid Grid.Row="1" Margin="17,11,293,157">
-                <Button Style="{StaticResource CustomButtonStyle}" Margin="1,1,1,1">
+                <Button Style="{StaticResource CustomButtonStyle}" Margin="1,1,1,1" Click="EquipColorPicker_Click">
                     <Image Source="icons/pick.png" Stretch="UniformToFill" Height="19" Width="19"/>
                 </Button>
             </Grid>
@@ -80,37 +80,37 @@
             <Border Grid.Row="1" Style="{StaticResource HoverBorderStyle}" CornerRadius="5" Margin="18,52,23,122">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="HEX" Foreground="Gray" VerticalAlignment="Center" Margin="10,0" FontFamily="Cascadia Code Light"/>
-                    <Label x:Name="HexLabel" Content="#E28B0A" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="5,0,0,0" Width="70" Height="16"/>
+                    <Label x:Name="hexLabel" Content="HEX Color" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="5,0,0,0" Width="70" Height="16"/>
                 </StackPanel>
             </Border>
 
             <Border Grid.Row="1" Style="{StaticResource HoverBorderStyle}" CornerRadius="5" Margin="18,87,23,87">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="RGB" Foreground="Gray" VerticalAlignment="Center" Margin="10,0" FontFamily="Cascadia Code Light"/>
-                    <Label x:Name="rgbLabel" Content="rgb(139, 48, 44)" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="5,0,0,0" Height="16" Width="120"/>
+                    <Label x:Name="rgbLabel" Content="RGB Color" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="5,0,0,0" Height="16" Width="120"/>
                 </StackPanel>
             </Border>
 
             <Border Grid.Row="1" Style="{StaticResource HoverBorderStyle}" CornerRadius="5" Margin="18,123,23,51">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="WPF" Foreground="Gray" VerticalAlignment="Center" Margin="10,0" FontFamily="Cascadia Code Light"/>
-                    <Label x:Name="wpfLabel" Content="Color.FromRGB(139, 48, 44)" FontFamily="Cascadia Code Light" Foreground="White" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="5,0,0,0" Height="16" Width="190"/>
+                    <Label x:Name="wpfLabel" Content="WPF Color" FontFamily="Cascadia Code Light" Foreground="White" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="5,0,0,0" Height="16" Width="190"/>
                 </StackPanel>
             </Border>
 
             <Border Grid.Row="1" Style="{StaticResource HoverBorderStyle}" CornerRadius="5" Margin="18,157,23,17">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="HSL" Foreground="Gray" VerticalAlignment="Center" Margin="10,0" FontFamily="Cascadia Code Light"/>
-                    <Label x:Name="HslLabel" Content="hsl(139, 48%, 44%)" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="5,0,0,0" Height="16" Width="135"/>
+                    <Label x:Name="hslLabel" Content="HSL Color" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="5,0,0,0" Height="16" Width="135"/>
                 </StackPanel>
             </Border>
 
-            <Rectangle Margin="65,12,237,158" Grid.Row="1" Fill="red"/>
-            <Rectangle Margin="105,12,197,158" Grid.Row="1" Fill="Green"/>
-            <Rectangle Margin="145,12,157,158" Grid.Row="1" Fill="Beige"/>
-            <Rectangle Margin="185,12,117,158" Grid.Row="1" Fill="SpringGreen"/>
-            <Rectangle Margin="225,12,77,158" Grid.Row="1" Fill="Blue"/>
-            <Rectangle Margin="265,12,37,158" Grid.Row="1" Fill="Purple"/>
+            <Rectangle x:Name="rect1" Margin="65,12,237,158" Grid.Row="1" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
+            <Rectangle x:Name="rect2" Margin="105,12,197,158" Grid.Row="1" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
+            <Rectangle x:Name="rect3" Margin="145,12,157,158" Grid.Row="1" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
+            <Rectangle x:Name="rect4" Margin="185,12,117,158" Grid.Row="1" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
+            <Rectangle x:Name="rect5" Margin="225,12,77,158" Grid.Row="1" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
+            <Rectangle x:Name="rect6" Margin="265,12,37,158" Grid.Row="1" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
 
         </Grid>
     </Border>
