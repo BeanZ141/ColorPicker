@@ -4,10 +4,14 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        Width="100" Height="100">
-    <Border Background="White" Opacity="0.9" CornerRadius="5">
-        <Canvas x:Name="ZoomCanvas" Width="100" Height="100">
-            <Rectangle x:Name="ZoomRectangle" Stroke="Black" StrokeThickness="1" Width="100" Height="100" RadiusX="5" RadiusY="5"/>
-        </Canvas>
+        Width="50" Height="50">
+    <Border Background="Transparent" BorderBrush="#777" BorderThickness="0.7" CornerRadius="5">
+        <Grid>
+            <Rectangle x:Name="ZoomRectangle" RadiusX="5" RadiusY="5">
+                <Rectangle.Fill>
+                    <ImageBrush x:Name="ZoomImageBrush"/>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Grid>
     </Border>
 </Window>
