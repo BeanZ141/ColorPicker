@@ -93,7 +93,7 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-                    <Label x:Name="hexLabel" Content="HEX Value" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="5,0,0,0" Width="70" Height="16"/>
+                    <Label x:Name="hexLabel" Content="HEX Value" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="12,0,0,0" Width="70" Height="16"/>
                 </StackPanel>
             </Border>
 
@@ -111,7 +111,7 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-                    <Label x:Name="rgbLabel" Content="RGB Value" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="5,0,0,0" Height="16" Width="212"/>
+                    <Label x:Name="rgbLabel" Content="RGB Value" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="12,0,0,0" Height="16" Width="212"/>
                 </StackPanel>
             </Border>
 
@@ -129,13 +129,13 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-                    <Label x:Name="hslLabel" Content="HSL Value" FontFamily="Cascadia Code Light" Foreground="White" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="5,0,0,0" Height="16" Width="212"/>
+                    <Label x:Name="hslLabel" Content="HSL Value" FontFamily="Cascadia Code Light" Foreground="White" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="12,0,0,0" Height="16" Width="212"/>
                 </StackPanel>
             </Border>
 
-            <Border Grid.Row="1" Style="{StaticResource HoverBorderStyle}" CornerRadius="5" Margin="18,157,23,17">
+            <Border MouseLeftButtonDown="CopyCmykValue" Grid.Row="1" Style="{StaticResource HoverBorderStyle}" CornerRadius="5" Margin="18,157,23,17">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="WPF" x:Name="wpfTextBlock" VerticalAlignment="Center" Margin="10,0" FontFamily="Cascadia Code Light">
+                    <TextBlock Text="CMYK" x:Name="cmykTextBlock" VerticalAlignment="Center" Margin="10,0" FontFamily="Cascadia Code Light">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Foreground" Value="Gray"/>
@@ -147,7 +147,7 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-                    <Label x:Name="wpfLabel" Content="WPF Value" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="5,0,0,0" Height="16" Width="212"/>
+                    <Label x:Name="cmykLabel" Content="CMYK Value" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="5,0,0,0" Height="16" Width="212"/>
                 </StackPanel>
             </Border>
 

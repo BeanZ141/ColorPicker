@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Effects;
+using System.Windows.Media.Animation;
 
 namespace PickerOptions
 {
@@ -49,7 +49,14 @@ namespace PickerOptions
             rgbLabel.Content = $"rgb({originalColor.R}, {originalColor.G}, {originalColor.B})";
 
             var hsl = RgbToHsl(originalColor);
-            hslLabel.Content = $"hsl({hsl.h}, {hsl.s}%, {hsl.l}%)";
+            double roundedHue = Math.Round(hsl.h); // Round Hue
+            double roundedSaturation = Math.Round(hsl.s * 100);
+            double roundedLightness = Math.Round(hsl.l * 100);
+
+            hslLabel.Content = $"hsl({roundedHue}, {roundedSaturation}%, {roundedLightness}%)";
+
+            string cmykValue = RgbToCmyk(originalColor);
+            cmykLabel.Content = cmykValue;
         }
 
         private (double h, double s, double l) RgbToHsl(Color color)
@@ -92,9 +99,11 @@ namespace PickerOptions
 
         public void UpdateHexLabel(string hexCode) { hexLabel.Content = $"#{hexCode.ToLower()}"; } // Update the HEX label
 
-        public void UpdateRgbLabel(string rgbCode) { rgbLabel.Content = rgbCode.ToLower(); } // Update the HEX label
+        public void UpdateRgbLabel(string rgbCode) { rgbLabel.Content = rgbCode.ToLower(); } // Update the RGB label
 
         public void UpdateHslLabel(string hslCode) { hslLabel.Content = hslCode; } // Update the HSL label
+
+        public void UpdateCmykLabel(string cmykCode) { cmykLabel.Content = cmykCode; } // Update the CMYK label
 
         // Copy HEX value to clipboard when rectangle is clicked
         private void Rectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -114,12 +123,15 @@ namespace PickerOptions
 
                 string hslCode = $"hsl({h}, {s}%, {l}%)";
 
+                string cmykCode = RgbToCmyk(selectedColor);
+
                 CopyToClipboard(hexCode);
 
                 // Update other lables when the display color is clicked
                 UpdateHexLabel(hexCode);
                 UpdateRgbLabel(rgbCode);
                 UpdateHslLabel(hslCode);
+                UpdateCmykLabel(cmykCode);
             }
         }
 
@@ -128,6 +140,7 @@ namespace PickerOptions
         {
             string hexValue = hexLabel.Content.ToString();
             System.Windows.Forms.Clipboard.SetText(hexValue);
+            ShowTooltip(sender, "Copied!");
         }
 
         // Copy RGB value to clipboard
@@ -135,6 +148,7 @@ namespace PickerOptions
         {
             string rgbValue = rgbLabel.Content.ToString();
             System.Windows.Forms.Clipboard.SetText(rgbValue);
+            ShowTooltip(sender, "Copied!");
         }
 
         // Copy HSL value to clipboard
@@ -142,12 +156,87 @@ namespace PickerOptions
         {
             string hslValue = hslLabel.Content.ToString();
             System.Windows.Forms.Clipboard.SetText(hslValue);
+            ShowTooltip(sender, "Copied!");
+        }
+
+        // Convert RGB to CMYK
+        private string RgbToCmyk(Color color)
+        {
+            float r = color.R / 255f;
+            float g = color.G / 255f;
+            float b = color.B / 255f;
+
+            float k = 1f - (float)Math.Max(Math.Max(r, g), b);
+            if (k == 1)
+            {
+                return "cmyk(0%, 0%, 0%, 100%)";
+            }
+
+            float c = (1f - r - k) / (1f - k);
+            float m = (1f - g - k) / (1f - k);
+            float y = (1f - b - k) / (1f - k);
+
+            c = (float)Math.Round(c * 100);
+            m = (float)Math.Round(m * 100);
+            y = (float)Math.Round(y * 100);
+            k = (float)Math.Round(k * 100);
+
+            return $"cmyk({c}%, {m}%, {y}%, {k}%)";
+        }
+
+        // Copy CMYK value to clipboard
+        private void CopyCmykValue(object sender, MouseButtonEventArgs e)
+        {
+            string cmykValue = cmykLabel.Content.ToString();
+            System.Windows.Forms.Clipboard.SetText(cmykValue);
+            ShowTooltip(sender, "Copied!");
         }
 
         // Copies a HEX when clicked on the display colors
         private void CopyToClipboard(string hexCode)
         {
             System.Windows.Forms.Clipboard.SetText(hexCode);
+        }
+
+        private void ShowTooltip(object sender, string message)
+        {
+            if (sender is UIElement element)
+            {
+                ToolTip toolTip = new ToolTip
+                {
+                    Content = message,
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0f0f0f")),
+                    Foreground = Brushes.White,
+                    BorderThickness = new Thickness(0),
+                    FontFamily = new FontFamily("Consolas"),
+                    PlacementTarget = element,
+                    Placement = System.Windows.Controls.Primitives.PlacementMode.Mouse,
+                    Opacity = 0
+                };
+
+                toolTip.IsOpen = true;
+
+                // Fade-in animation
+                DoubleAnimation fadeIn = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(100));
+                toolTip.BeginAnimation(UIElement.OpacityProperty, fadeIn);
+
+                var timer = new System.Windows.Threading.DispatcherTimer
+                {
+                    Interval = TimeSpan.FromMilliseconds(400)
+                };
+                timer.Tick += (s, args) =>
+                {
+                    // Fade-out animation
+                    DoubleAnimation fadeOut = new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(100));
+                    fadeOut.Completed += (s2, e2) =>
+                    {
+                        toolTip.IsOpen = false;
+                    };
+                    toolTip.BeginAnimation(UIElement.OpacityProperty, fadeOut);
+                    timer.Stop();
+                };
+                timer.Start();
+            }
         }
 
         // Opens the Color Picker from the PickerOptions Menu and closes the PickerOptions

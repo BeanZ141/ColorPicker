@@ -33,7 +33,7 @@ namespace ColorPicker
         public PickerOptionsWindow _pickerOptionsWindow;
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct POINT    // What the fuck even is this
+        private struct POINT    // tf even is this
         {
             public int x;
             public int y;
@@ -75,7 +75,7 @@ namespace ColorPicker
         public MainWindow()
         {
             InitializeComponent();
-            _zoomWindow = new ZoomWindow { Visibility = Visibility.Collapsed }; // Initially collapsed. Wont display if the MainWindow is collapsed
+            _zoomWindow = new ZoomWindow { Visibility = Visibility.Collapsed }; // Initially collapsed. Wont display if the MainWindow is collapsed too
             _proc = HookCallback;
             _hookID = SetHook(_proc);
 
