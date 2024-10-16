@@ -246,5 +246,27 @@ namespace PickerOptions
             var mainWindow = Application.Current.MainWindow as MainWindow;
             mainWindow.ShowApp();
         }
+
+        public void ShowColorPickerPanel()
+        {
+            ColorPickerPanel.Visibility = Visibility.Visible;
+        }
+
+        // Opens the Color Editor
+        public void OpenColorEditor_Click(object sender, RoutedEventArgs e)
+        {
+            ColorPickerPanel.Visibility = Visibility.Collapsed;
+            ShowColorEditorPanel();
+        }
+
+        public void ShowColorEditorPanel()
+        {
+            ColorEditorPanel.Visibility = Visibility.Visible;
+        }
+
+        public void ShowColorEditorPanelColl()
+        {
+            ColorEditorPanel.Visibility = Visibility.Collapsed;
+        }
     }
 }

@@ -119,5 +119,13 @@
   <ItemGroup>
     <Resource Include="icons\pick.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons\copy.png" />
+    <Resource Include="icons\edit.png" />
+    <Resource Include="icons\picker.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

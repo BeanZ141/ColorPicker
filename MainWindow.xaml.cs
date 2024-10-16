@@ -10,6 +10,7 @@ using System.Windows.Input;
 using DrawingColorConverter = System.Drawing.ColorConverter;
 using DrawingColor = System.Drawing.Color;
 using PickerOptions;
+using ColorPicker;
 
 namespace ColorPicker
 
@@ -29,7 +30,6 @@ namespace ColorPicker
         private readonly IntPtr _hookID;
         private const int WH_MOUSE_LL = 14;
         public string copiedHexCode;
-
         public PickerOptionsWindow _pickerOptionsWindow;
 
         [StructLayout(LayoutKind.Sequential)]
@@ -78,9 +78,10 @@ namespace ColorPicker
             _zoomWindow = new ZoomWindow { Visibility = Visibility.Collapsed }; // Initially collapsed. Wont display if the MainWindow is collapsed too
             _proc = HookCallback;
             _hookID = SetHook(_proc);
-
+            
             CreateNotifyIcon();
             RegisterHotKeys();
+            _pickerOptionsWindow = new PickerOptionsWindow();
 
             this.Loaded += (s, e) =>
             {
@@ -143,6 +144,8 @@ namespace ColorPicker
                 _pickerOptionsWindow.UpdateHexLabel(copiedHexCode);
                 _pickerOptionsWindow.Show();
             }
+            _pickerOptionsWindow.ShowColorPickerPanel();
+                _pickerOptionsWindow.ShowColorEditorPanelColl();
         }
 
         private IntPtr SetHook(LowLevelMouseProc proc)
@@ -202,7 +205,7 @@ namespace ColorPicker
         }
 
         // Adds a menu for the application in the system tray
-        private void CreateNotifyIcon()     
+        private void CreateNotifyIcon()
         {
             _notifyIcon = new NotifyIcon
             {
@@ -285,9 +288,9 @@ namespace ColorPicker
         private void UpdateColorDisplay(object sender, EventArgs e)
         {
             var cursorPosition = System.Windows.Forms.Cursor.Position;
-            this.Left = cursorPosition.X + 11;
-            this.Top = cursorPosition.Y - 3;
-    
+            this.Left = cursorPosition.X + 15;
+            this.Top = cursorPosition.Y - 25;
+
             using (var bitmap = new Bitmap(1, 1))
             using (var g = Graphics.FromImage(bitmap))
             {
@@ -296,7 +299,7 @@ namespace ColorPicker
                 var color = System.Windows.Media.Color.FromArgb(pixelColor.A, pixelColor.R, pixelColor.G, pixelColor.B);
                 ColorDisplay.Background = new SolidColorBrush(color);
                 ColorCodeTextBlock.Text = $"{color.R:X2}{color.G:X2}{color.B:X2}".ToLower();
-            }  
+            }
         }
     }
 }

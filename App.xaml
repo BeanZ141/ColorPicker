@@ -4,13 +4,13 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <Style x:Key="HoverBorderStyle" TargetType="Border">
-            <Setter Property="Background" Value="#080808"/>
+            <Setter Property="Background" Value="#0B0B0B"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#0f0f0f"/>
+                    <Setter Property="Background" Value="#141414"/>
                     <Setter Property="Effect">
                         <Setter.Value>
-                            <DropShadowEffect Color="#0f0f0f" BlurRadius="10" ShadowDepth="0" Opacity="0.9"/>
+                            <DropShadowEffect Color="#141414" BlurRadius="10" ShadowDepth="0" Opacity="0.9"/>
                         </Setter.Value>
                     </Setter>
                 </Trigger>
@@ -19,24 +19,22 @@
         
         <!--Button-->
         <Style x:Key="CustomButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#080808"/>
-            <Setter Property="Foreground" Value="Gray"/>
-            <Setter Property="FontFamily" Value="Cascadia Code Light"/>
+            <Setter Property="Background" Value="#0B0B0B"/>
             <Setter Property="Padding" Value="10,5"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="5">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="10">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#0f0f0f"/>
+                                <Setter TargetName="border" Property="Background" Value="#141414"/>
                                 <Setter TargetName="border" Property="Effect">
                                     <Setter.Value>
-                                        <DropShadowEffect Color="#0f0f0f" BlurRadius="10" ShadowDepth="0" Opacity="0.9"/>
+                                        <DropShadowEffect Color="#141414" BlurRadius="10" ShadowDepth="0" Opacity="0.9"/>
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
@@ -57,7 +55,7 @@
                         <Storyboard>
                             <DoubleAnimation
                                 Storyboard.TargetProperty="StrokeThickness"
-                                To="0.5"
+                                To="0.7"
                                 Duration="0:0:0.0"/>
                             <ColorAnimation
                                 Storyboard.TargetProperty="Stroke.(SolidColorBrush.Color)"
@@ -92,5 +90,23 @@
             <Setter Property="PlacementTarget" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Setter Property="IsOpen" Value="True"/>
         </Style>
+        
+        <!--Slider-->
+        <Style x:Key="MinimalSliderStyle" TargetType="Slider">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Slider">
+                        <Grid>
+                            <Border Height="4" VerticalAlignment="Center" CornerRadius="2" Background="#1c1c1c">
+                                <Border x:Name="PART_Track" Background="#00BCD4" Height="3" HorizontalAlignment="Left" CornerRadius="2"/>
+                            </Border>
+                            <Thumb x:Name="PART_Thumb" Width="4" Height="4" BorderThickness="0" Background="#00BCD4" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Focusable" Value="False"/>
+        </Style>
+        
     </Application.Resources>
 </Application>

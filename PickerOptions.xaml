@@ -14,16 +14,17 @@
         Foreground="#FFD4D4D4"
         MouseDown="MainWindow_MouseDown"
         Topmost="True"
+        WindowStartupLocation="CenterScreen"
         Title="MainWindow">
 
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
     </WindowChrome.WindowChrome>
 
-    <Border CornerRadius="4" BorderThickness="4">
+    <Border CornerRadius="10" BorderThickness="4">
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="#0f0f0f"/>
+                <GradientStop Color="#080808"/>
             </LinearGradientBrush>
         </Border.BorderBrush>
 
@@ -31,7 +32,7 @@
             <Grid.Background>
 
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#0f0f0f"/>
+                    <GradientStop Color="#080808"/>
                 </LinearGradientBrush>
             </Grid.Background>
             <Grid.RowDefinitions>
@@ -40,11 +41,11 @@
             </Grid.RowDefinitions>
 
             <!-- Close Button -->
-            <Button Click="CloseButton_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Width="10" Height="10" Margin="5,0,0,0">
+            <Button Click="CloseButton_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Width="12" Height="12" Margin="5,5,0,0">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid>
-                            <Border x:Name="border" Background="#555" CornerRadius="50"/>
+                            <Border x:Name="border" Background="#272727" CornerRadius="10"/>
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Grid>
                         <ControlTemplate.Triggers>
@@ -57,11 +58,11 @@
             </Button>
 
             <!-- Minimize Button -->
-            <Button Click="MinimizeButton_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Width="10" Height="10" BorderBrush="{x:Null}" Margin="19,0,0,0">
+            <Button Click="MinimizeButton_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Width="12" Height="12" BorderBrush="{x:Null}" Margin="22,5,0,0">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid>
-                            <Border x:Name="border" Background="#555" CornerRadius="50"/>
+                            <Border x:Name="border" Background="#272727" CornerRadius="50"/>
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Grid>
                         <ControlTemplate.Triggers>
@@ -73,90 +74,112 @@
                 </Button.Template>
             </Button>
 
-            <Grid Grid.Row="1" Margin="17,11,293,157">
-                <Button Click="OpenColorPicker_Click" Style="{StaticResource CustomButtonStyle}" Margin="1,1,1,1">
-                    <Image Source="icons/pick.png" Stretch="UniformToFill" Height="19" Width="19"/>
-                </Button>
+            <Grid Grid.Row="1" x:Name="ColorPickerPanel" Visibility="Visible">
+                <!--Color Picker Button-->
+                <Grid Margin="18,14,298,160">
+                    <Button Click="OpenColorPicker_Click" Style="{StaticResource CustomButtonStyle}">
+                        <Image Source="icons/pick.png" Stretch="UniformToFill" Height="15" Width="15"/>
+                    </Button>
+                </Grid>
+
+                <!--Color Editor Button-->
+                <Grid Margin="53,14,263,160">
+                    <Button Click="OpenColorEditor_Click" Style="{StaticResource CustomButtonStyle}">
+                        <Image Source="icons/pick.png" Stretch="UniformToFill" Height="15" Width="15"/>
+                    </Button>
+                </Grid>
+
+                <Border MouseLeftButtonDown="CopyHexValue" Grid.Row="1" Style="{StaticResource HoverBorderStyle}" CornerRadius="10" Margin="18,52,23,122">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="HEX" x:Name="hexTextBlock" VerticalAlignment="Center" Margin="10,0" FontFamily="Cascadia Code Light">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="Gray"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <Label x:Name="hexLabel" Content="HEX Value" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="12,0,0,0" Width="77" Height="16"/>
+                    </StackPanel>
+                </Border>
+
+                <Border MouseLeftButtonDown="CopyRgbValue" Grid.Row="1" Style="{StaticResource HoverBorderStyle}" CornerRadius="10" Margin="18,87,23,87">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="RGB" x:Name="rgbTextBlock" VerticalAlignment="Center" Margin="10,0" FontFamily="Cascadia Code Light">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="Gray"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <Label x:Name="rgbLabel" Content="RGB Value" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="12,0,0,0" Height="16" Width="212"/>
+                    </StackPanel>
+                </Border>
+
+                <Border MouseLeftButtonDown="CopyHslValue" Grid.Row="1" Style="{StaticResource HoverBorderStyle}" CornerRadius="10" Margin="18,123,23,51">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="HSL" x:Name="hslTextBlock" VerticalAlignment="Center" Margin="10,0" FontFamily="Cascadia Code Light">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="Gray"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <Label x:Name="hslLabel" Content="HSL Value" FontFamily="Cascadia Code Light" Foreground="White" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="12,0,0,0" Height="16" Width="212"/>
+                    </StackPanel>
+                </Border>
+
+                <Border MouseLeftButtonDown="CopyCmykValue" Grid.Row="1" Style="{StaticResource HoverBorderStyle}" CornerRadius="10" Margin="18,157,23,17">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="CMYK" x:Name="cmykTextBlock" VerticalAlignment="Center" Margin="10,0" FontFamily="Cascadia Code Light">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="Gray"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <Label x:Name="cmykLabel" Content="CMYK Value" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="5,0,0,0" Height="16" Width="212"/>
+                    </StackPanel>
+                </Border>
+
+                <Rectangle x:Name="rect1" Margin="87,15,216,161" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
+                <Rectangle x:Name="rect2" Margin="126,15,178,161" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
+                <Rectangle x:Name="rect3" Margin="164,15,139,161" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
+                <Rectangle x:Name="rect4" Margin="203,15,100,161" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
+                <Rectangle x:Name="rect5" Margin="242,15,62,161" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
+                <Rectangle x:Name="rect6" Margin="280,15,23,161" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
+
             </Grid>
 
-            <Border MouseLeftButtonDown="CopyHexValue" Grid.Row="1" Style="{StaticResource HoverBorderStyle}" CornerRadius="5" Margin="18,52,23,122">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="HEX" x:Name="hexTextBlock" VerticalAlignment="Center" Margin="10,0" FontFamily="Cascadia Code Light">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Foreground" Value="Gray"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
-                                        <Setter Property="Foreground" Value="White"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <Label x:Name="hexLabel" Content="HEX Value" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="12,0,0,0" Width="70" Height="16"/>
-                </StackPanel>
-            </Border>
+            <Grid Grid.Row="1" x:Name="ColorEditorPanel" Visibility="Collapsed">
+                <Border x:Name="ColorDisplay" Height="64" Background="#b9ff42" Margin="-4,8,-4,128"/>
+                <Grid Margin="62,82,62,51">
+                    <Slider x:Name="RedSlider" Minimum="0" Maximum="255" Margin="0,0,0,45" Style="{StaticResource MinimalSliderStyle}"/>
 
-            <Border MouseLeftButtonDown="CopyRgbValue" Grid.Row="1" Style="{StaticResource HoverBorderStyle}" CornerRadius="5" Margin="18,87,23,87">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="RGB" x:Name="rgbTextBlock" VerticalAlignment="Center" Margin="10,0" FontFamily="Cascadia Code Light">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Foreground" Value="Gray"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
-                                        <Setter Property="Foreground" Value="White"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <Label x:Name="rgbLabel" Content="RGB Value" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="12,0,0,0" Height="16" Width="212"/>
-                </StackPanel>
-            </Border>
+                    <Slider x:Name="GreenSlider" Minimum="0" Maximum="255" Margin="0,23,0,22" Style="{StaticResource MinimalSliderStyle}"/>
 
-            <Border MouseLeftButtonDown="CopyHslValue" Grid.Row="1" Style="{StaticResource HoverBorderStyle}" CornerRadius="5" Margin="18,123,23,51">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="HSL" x:Name="hslTextBlock" VerticalAlignment="Center" Margin="10,0" FontFamily="Cascadia Code Light">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Foreground" Value="Gray"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
-                                        <Setter Property="Foreground" Value="White"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <Label x:Name="hslLabel" Content="HSL Value" FontFamily="Cascadia Code Light" Foreground="White" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="12,0,0,0" Height="16" Width="212"/>
-                </StackPanel>
-            </Border>
-
-            <Border MouseLeftButtonDown="CopyCmykValue" Grid.Row="1" Style="{StaticResource HoverBorderStyle}" CornerRadius="5" Margin="18,157,23,17">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="CMYK" x:Name="cmykTextBlock" VerticalAlignment="Center" Margin="10,0" FontFamily="Cascadia Code Light">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Foreground" Value="Gray"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
-                                        <Setter Property="Foreground" Value="White"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <Label x:Name="cmykLabel" Content="CMYK Value" Foreground="White" FontFamily="Cascadia Code Light" Background="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="5,0,0,0" Height="16" Width="212"/>
-                </StackPanel>
-            </Border>
-
-            <Rectangle x:Name="rect1" Margin="67,14,235,160" Grid.Row="1" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
-            <Rectangle x:Name="rect2" Margin="107,14,195,160" Grid.Row="1" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
-            <Rectangle x:Name="rect3" Margin="147,14,155,160" Grid.Row="1" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
-            <Rectangle x:Name="rect4" Margin="187,14,115,160" Grid.Row="1" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
-            <Rectangle x:Name="rect5" Margin="227,14,75,160" Grid.Row="1" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
-            <Rectangle x:Name="rect6" Margin="267,14,35,160" Grid.Row="1" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Style="{StaticResource HoverRectangleStyle}"/>
+                    <Slider x:Name="BlueSlider" Minimum="0" Maximum="255" Margin="0,47,0,0" Style="{StaticResource MinimalSliderStyle}"/>
+                </Grid>
+            </Grid>
 
         </Grid>
     </Border>
