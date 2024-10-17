@@ -1,10 +1,16 @@
 ﻿using ColorPicker;
 using System;
+using System.Diagnostics;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Shapes;
+using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
+
 
 namespace PickerOptions
 {
@@ -31,6 +37,12 @@ namespace PickerOptions
             {
                 this.DragMove();
             }
+        }
+
+        private void CloseEditorButton_Click(object sender, RoutedEventArgs e)
+        {
+            ColorEditorPanel.Visibility = Visibility.Collapsed;
+            ColorPickerPanel.Visibility = Visibility.Visible;
         }
 
         public void UpdateColors(string hexCode)
@@ -90,7 +102,6 @@ namespace PickerOptions
             }
             return (h * 360, s, l);
         }
-
 
         private Color GetShade(Color color, double factor)
         {
@@ -202,7 +213,7 @@ namespace PickerOptions
         {
             if (sender is UIElement element)
             {
-                ToolTip toolTip = new ToolTip
+                System.Windows.Controls.ToolTip toolTip = new System.Windows.Controls.ToolTip
                 {
                     Content = message,
                     Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0f0f0f")),
@@ -243,7 +254,7 @@ namespace PickerOptions
         private void OpenColorPicker_Click(object sender, EventArgs e)
         {
             Close();
-            var mainWindow = Application.Current.MainWindow as MainWindow;
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
             mainWindow.ShowApp();
         }
 
@@ -267,6 +278,53 @@ namespace PickerOptions
         public void ShowColorEditorPanelColl()
         {
             ColorEditorPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void RGBSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            byte red = (byte)RedSlider.Value;
+            byte green = (byte)GreenSlider.Value;
+            byte blue = (byte)BlueSlider.Value;
+
+            if (sender is Slider slider)
+            {
+                ColorDisplay.Background = new SolidColorBrush(Color.FromRgb(red, green, blue));
+
+                var fillBorder = (Border)slider.Template.FindName("FillBorder", slider);
+                double sliderWidth = slider.ActualWidth - slider.Padding.Left - slider.Padding.Right;
+                double newWidth = (slider.Value / slider.Maximum) * sliderWidth;
+                fillBorder.Width = newWidth;
+                fillBorder.Margin = new Thickness(0, 0, 0, 0);
+            }
+
+            if (sender == RedSlider)
+            {
+                redValue.Text = ((int)e.NewValue).ToString();
+            }
+            else if (sender == GreenSlider)
+            {
+                greenValue.Text = ((int)e.NewValue).ToString();
+            }
+            else if (sender == BlueSlider)
+            {
+                blueValue.Text = ((int)e.NewValue).ToString();
+            }
+
+            string hexColor = $"#{red:X2}{green:X2}{blue:X2}";
+            hexCodeBlock.Text = hexColor;
+        }
+
+        public void CopyHexCode_Click(object sender, RoutedEventArgs e)
+        {
+            byte red = (byte)RedSlider.Value;
+            byte green = (byte)GreenSlider.Value;
+            byte blue = (byte)BlueSlider.Value;
+
+            string hexColor = $"#{red:X2}{green:X2}{blue:X2}";
+            hexCodeBlock.Text = hexColor;
+
+            CopyToClipboard(hexColor);
+            ShowTooltip(sender, "Copied!");
         }
     }
 }

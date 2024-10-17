@@ -1,6 +1,7 @@
 ﻿<Application x:Class="ColorPicker.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ColorPicker"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <Style x:Key="HoverBorderStyle" TargetType="Border">
@@ -91,21 +92,79 @@
             <Setter Property="IsOpen" Value="True"/>
         </Style>
         
-        <!--Slider-->
-        <Style x:Key="MinimalSliderStyle" TargetType="Slider">
+        <!--Red Slider-->
+        <Style x:Key="RedSliderStyle" TargetType="Slider">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Slider">
                         <Grid>
-                            <Border Height="4" VerticalAlignment="Center" CornerRadius="2" Background="#1c1c1c">
-                                <Border x:Name="PART_Track" Background="#00BCD4" Height="3" HorizontalAlignment="Left" CornerRadius="2"/>
-                            </Border>
-                            <Thumb x:Name="PART_Thumb" Width="4" Height="4" BorderThickness="0" Background="#00BCD4" VerticalAlignment="Center"/>
+                            <Border x:Name="FillBorder" Panel.ZIndex="1" CornerRadius="2" Background="#cc0000" Height="4" HorizontalAlignment="Left"/>
+                            <Border CornerRadius="2" VerticalAlignment="Center" Background="#1c1c1c" Height="4"/>
+                            <Track x:Name="PART_Track" Panel.ZIndex="1">
+                                <Track.Thumb>
+                                    <Thumb x:Name="PART_Thumb" Width="10" Height="10">
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Ellipse Fill="#cc0000" StrokeThickness="0"/>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                            </Track>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Setter Property="Focusable" Value="False"/>
+        </Style>
+
+        <!--Green Slider-->
+        <Style x:Key="GreenSliderStyle" TargetType="Slider">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Slider">
+                        <Grid>
+                            <Border x:Name="FillBorder" Panel.ZIndex="1" CornerRadius="2" Background="#00c70d" Height="4" HorizontalAlignment="Left"/>
+                            <Border CornerRadius="2" VerticalAlignment="Center" Background="#1c1c1c" Height="4"/>
+                            <Track x:Name="PART_Track" Panel.ZIndex="1">
+                                <Track.Thumb>
+                                    <Thumb x:Name="PART_Thumb" Width="10" Height="10">
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Ellipse Fill="#00c70d" StrokeThickness="0"/>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--Blue Slider-->
+        <Style x:Key="BlueSliderStyle" TargetType="Slider">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Slider">
+                        <Grid>
+                            <Border x:Name="FillBorder" Panel.ZIndex="1" CornerRadius="2" Background="Blue" Height="4" HorizontalAlignment="Left"/>
+                            <Border CornerRadius="2" VerticalAlignment="Center" Background="#1c1c1c" Height="4"/>
+                            <Track x:Name="PART_Track" Panel.ZIndex="1">
+                                <Track.Thumb>
+                                    <Thumb x:Name="PART_Thumb" Width="10" Height="10">
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Ellipse Fill="Blue" StrokeThickness="0"/>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Application.Resources>
 </Application>
