@@ -12,3 +12,5 @@ Press `Ctrl + Shift + C` to open the color picker.
 ## Copy to Clipboard:
 Easily copy any color format (HEX, RGB, HSL, CMYK) by clicking on the displayed color code or the corresponding swatch.
 
+## How to Exit:
+Close the application through the system tray.
