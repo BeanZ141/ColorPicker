@@ -215,7 +215,6 @@ namespace ColorPicker
                 {
                     Items =
                     {
-                        new ToolStripMenuItem("Settings", null, Settings_Click),
                         new ToolStripMenuItem("Exit", null, Exit_Click)
                     }
                 }

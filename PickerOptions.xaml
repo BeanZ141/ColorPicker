@@ -74,7 +74,7 @@
                 </Button.Template>
             </Button>
 
-            <Grid Grid.Row="1" x:Name="ColorPickerPanel" Visibility="Collapsed">
+            <Grid Grid.Row="1" x:Name="ColorPickerPanel" Visibility="Visible">
                 <!--Color Picker Button-->
                 <Grid Margin="18,14,298,160">
                     <Button Click="OpenColorPicker_Click" Style="{StaticResource CustomButtonStyle}">
@@ -170,30 +170,34 @@
 
             </Grid>
 
-            <Grid Grid.Row="1" x:Name="ColorEditorPanel" Visibility="Visible">
+            <Grid Grid.Row="1" x:Name="ColorEditorPanel" Visibility="Collapsed">
                 <Border x:Name="ColorDisplay" Height="64" Background="#080808" Margin="-4,8,-4,128"/>
-                <Grid Margin="62,92,62,40">
+                <Grid Margin="62,90,62,42">
                     <Slider x:Name="RedSlider" Minimum="0" Maximum="255" Background="red"
                             Style="{StaticResource RedSliderStyle}" IsMoveToPointEnabled="True"
                 Tag="Red" ValueChanged="RGBSlider_ValueChanged" Margin="0,3,0,48"/>
-                    <TextBlock Text="R" VerticalAlignment="Top" Margin="-14,4,225,0" Foreground="Gray" FontFamily="Cascadia Code Light"/>
-                    <!--Red Value--><TextBlock x:Name="redValue" Text="0" VerticalAlignment="Top" Margin="226,4,-34,0" Foreground="Gray" FontFamily="Cascadia Code Light"/>
+                    <TextBlock Text="R" VerticalAlignment="Top" Margin="-15,4,226,0" Foreground="Gray" FontFamily="Cascadia Code Light"/>
+                    <!--Red Value-->
+                    <TextBlock x:Name="redValue" Text="0" VerticalAlignment="Top" Margin="227,4.5,-35,0" Foreground="Gray" FontFamily="Cascadia Code Light"/>
 
                     <Slider x:Name="GreenSlider" Minimum="0" Maximum="255" 
                             Style="{StaticResource GreenSliderStyle}" IsMoveToPointEnabled="True"
                 Tag="Green" ValueChanged="RGBSlider_ValueChanged" Margin="0,27,0,26"/>
-                    <TextBlock Text="G" VerticalAlignment="Center" Margin="-14,0,225,0" Foreground="Gray" FontFamily="Cascadia Code Light"/>
-                    <!--Red Value--><TextBlock x:Name="greenValue" Text="0" VerticalAlignment="Center" Margin="226,0,-34,0" Foreground="Gray" FontFamily="Cascadia Code Light"/>
+                    <TextBlock Text="G" VerticalAlignment="Center" Margin="-15,0,226,0" Foreground="Gray" FontFamily="Cascadia Code Light"/>
+                    <!--Red Value-->
+                    <TextBlock x:Name="greenValue" Text="0" VerticalAlignment="Center" Margin="227,0,-35,0" Foreground="Gray" FontFamily="Cascadia Code Light"/>
 
                     <Slider x:Name="BlueSlider" Minimum="0" Maximum="255" 
                             Style="{StaticResource BlueSliderStyle}" IsMoveToPointEnabled="True"
                 Tag="Blue" ValueChanged="RGBSlider_ValueChanged" Margin="0,50,0,3"/>
-                    <TextBlock Text="B" VerticalAlignment="Top" Margin="-14,51,225,0" Foreground="Gray" FontFamily="Cascadia Code Light"/>
-                    <!--Red Value--><TextBlock x:Name="blueValue" Text="0" VerticalAlignment="Top" Margin="226,50,-34,0" Foreground="Gray" FontFamily="Cascadia Code Light"/>
+                    <TextBlock Text="B" VerticalAlignment="Top" Margin="-15,50.5,226,0" Foreground="Gray" FontFamily="Cascadia Code Light"/>
+                    <!--Red Value-->
+                    <TextBlock x:Name="blueValue" Text="0" VerticalAlignment="Top" Margin="227,50,-35,0" Foreground="Gray" FontFamily="Cascadia Code Light"/>
                 </Grid>
-                
-                <!--Hex Code--><TextBlock Text="#000000" x:Name="hexCodeBlock" VerticalAlignment="Top" Margin="138,169,138,0" Foreground="White" FontSize="15" FontFamily="Cascadia Code Light"/>
-                
+
+                <!--Hex Code-->
+                <TextBlock Text="#000000" x:Name="hexCodeBlock" VerticalAlignment="Top" Margin="142,169,142,0" Foreground="White" FontSize="14" FontFamily="Cascadia Code Light"/>
+
                 <!--Color Picker Button-->
                 <Grid Margin="211,168,111,12">
                     <Button Click="CopyHexCode_Click" Style="{StaticResource CustomButtonStyle}" Margin="-6,-6,-6,-6">
