@@ -107,6 +107,5 @@
             </Setter>
             <Setter Property="Focusable" Value="False"/>
         </Style>
-        
     </Application.Resources>
 </Application>
